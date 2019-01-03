@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 11:19:25
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-02 17:58:15
+ * @Last Modified time: 2019-01-03 09:58:05
  */
 namespace app\api\validate;
 
@@ -20,14 +20,12 @@ class BaseValidate extends Validate
 		$request = Request::instance();
 		$params = $request->param();
 
-		$result = $this->check($params);
+		$result = $this->batch()->check($params);
 		if(!$result){
-			$error = $this->error;
-			$e = new ParameterException();
-			$e->msg = $this->error;
+			$e = new ParameterException([
+				'msg' => $this->error
+			]);
 			throw $e;
-			// throw new Exception($error);
-
 		}else{
 			return true;
 		}

@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 09:43:23
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-02 17:15:26
+ * @Last Modified time: 2019-01-03 09:03:07
  */
 
 namespace app\api\controller\v1;
@@ -14,7 +14,6 @@ namespace app\api\controller\v1;
 use app\api\validate\IDMustBePostiveInt;
 use app\api\model\Banner as BannerModel;
 use app\lib\exception\BannerMissException;
-use think\Exception;
 class Banner
 {
 	/**

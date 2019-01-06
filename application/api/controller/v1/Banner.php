@@ -4,12 +4,12 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 09:43:23
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-03 16:12:07
+ * @Last Modified time: 2019-01-06 17:32:51
  */
+
 
 namespace app\api\controller\v1;
 
-// use think\Validate;
 
 use app\api\validate\IDMustBePostiveInt;
 use app\api\model\Banner as BannerModel;
@@ -28,10 +28,7 @@ class Banner
 		// AOP面向切面编程
 		(new IDMustBePostiveInt())->goCheck();
 
-		// $banner = BannerModel::getBannerByID($id);
-		$banner = BannerModel::get($id);
-		// $banner = new BannerModel();
-		// $banner = $banner->get($id);
+		$banner = BannerModel::getBannerByID($id);
 		if (!$banner){
 			throw new BannerMissException();
 		}

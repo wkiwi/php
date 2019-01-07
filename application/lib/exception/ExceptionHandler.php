@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 15:21:17
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-02 17:26:28
+ * @Last Modified time: 2019-01-03 11:27:37
  */
 
 namespace app\lib\exception;
@@ -12,7 +12,6 @@ namespace app\lib\exception;
 use think\Exception;
 use think\exception\Handle;
 use think\Request;
-// use app\lib\exception\BaseException;
 use think\Log;
 class ExceptionHandler extends Handle
 {
@@ -21,7 +20,7 @@ class ExceptionHandler extends Handle
 	private $errorCode;
 	//需要返回客户端当前请求的URL路径
 	//
-	public function render(Exception $e)
+	public function render(\Exception $e)
 	{
 		if($e instanceof BaseException){
 			//如果是自定义的异常
@@ -49,7 +48,7 @@ class ExceptionHandler extends Handle
 		return json($result,$this->code);
 	}
 
-	private function recordErrorLog(Exception $e){
+	private function recordErrorLog(\Exception $e){
 		Log::init([
 			'type' => 'File',
 			'path'  => LOG_PATH,

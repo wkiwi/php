@@ -4,17 +4,16 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 09:43:23
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-02 17:15:26
+ * @Last Modified time: 2019-01-07 17:22:06
  */
+
 
 namespace app\api\controller\v1;
 
-// use think\Validate;
 
 use app\api\validate\IDMustBePostiveInt;
 use app\api\model\Banner as BannerModel;
 use app\lib\exception\BannerMissException;
-use think\Exception;
 class Banner
 {
 	/**
@@ -26,24 +25,13 @@ class Banner
 	public function getBanner($id){
 		// 独立验证
 		// 验证器
+		// AOP面向切面编程
 		(new IDMustBePostiveInt())->goCheck();
+
 		$banner = BannerModel::getBannerByID($id);
-		// if (!$banner){
-		// 	throw new BannerMissException();
-		// }
+		if (!$banner){
+			throw new BannerMissException();
+		}
 		return $banner;
-		// $data = [
-		// 	'id' => $id
-		// ];
-
-		// $validate = new Validate([
-		// 	'id' =>''
-		// ]);
-		// $validate = new IDMustBePostiveInt();
-
-		// $result = $validate->batch()->check($data);
-		// var_dump( $validate->getError() );
-		// return $result;
-		// return $id;
 	}
 }

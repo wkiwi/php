@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 11:19:25
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-07 10:13:19
+ * @Last Modified time: 2019-01-08 16:21:52
  */
 namespace app\api\validate;
 
@@ -37,6 +37,14 @@ class BaseValidate extends Validate
 		}else {
 			return false;
 			// return $field.'必须是正整数';
+		}
+	}
+
+	public function isNotEmpty($value,$rule ='',$data='',$field='') {
+		if(empty($value)) {
+			return false;
+		}else {
+			return true;
 		}
 	}
 }

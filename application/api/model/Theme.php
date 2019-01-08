@@ -4,13 +4,11 @@
  * @Author: wkiwi
  * @Date:   2019-01-07 09:32:04
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-07 11:48:40
+ * @Last Modified time: 2019-01-08 14:16:41
  */
 
 namespace app\api\model;
 
-use think\Db;
-use think\Exception;
 use app\api\model\BaseModel;
 
 class Theme extends BaseModel

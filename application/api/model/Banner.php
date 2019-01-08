@@ -4,12 +4,10 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 14:41:03
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-06 17:22:35
+ * @Last Modified time: 2019-01-08 14:16:50
  */
 namespace app\api\model;
 
-use think\Db;
-use think\Exception;
 use app\api\model\BaseModel;
 
 class Banner extends BaseModel

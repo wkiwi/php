@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-07 15:01:11
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-08 10:57:58
+ * @Last Modified time: 2019-01-09 10:23:44
  */
 
 namespace app\api\controller\v1;
@@ -51,5 +51,20 @@ class Product
 		}
 		$products = $products->hidden(['summary']);
 		return $products;
+	}
+
+	/**
+	 * 获取商品详情信息
+	 * @url product/1
+	 * @http GET
+	 * @id 商品参数
+	 */
+	public function getOne($id){
+		(new IDMustBePostiveInt)->goCheck();
+		$product = ProductModel::getProductDetail($id);
+		if(!$product){
+			throw new ProductException();	
+		}
+		return $product;
 	}
 }

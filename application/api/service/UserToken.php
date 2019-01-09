@@ -4,7 +4,7 @@
  * @Author: wangzhen
  * @Date:   2019-01-08 14:19:11
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-08 17:40:37
+ * @Last Modified time: 2019-01-09 15:46:27
  */
 namespace app\api\service;
 
@@ -13,6 +13,8 @@ use app\lib\exception\WeChatException;
 use app\lib\exception\TokenException;
 use app\api\model\User as UserModel;
 use app\api\service\Token;
+use app\lib\enum\ScopeEnum;
+
 class UserToken extends Token
 {	
 	protected $code;
@@ -80,7 +82,10 @@ class UserToken extends Token
 	private function prepareCachedValue($wxResult, $uid){
 		$cachedValue = $wxResult;
 		$cachedValue['uid'] = $uid;
-		$cachedValue['scope'] = 16;
+		//scope=16 代表app用户的权限数值
+		$cachedValue['scope'] = ScopeEnum::User;
+		//scope=32 代表cms（管理员）用户权限数值
+		// $cachedValue['scope'] = 16;
 		return $cachedValue;
 	}
 

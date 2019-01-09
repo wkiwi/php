@@ -4,7 +4,7 @@
  * @Author: wangzhen
  * @Date:   2019-01-08 14:29:33
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-08 17:44:51
+ * @Last Modified time: 2019-01-09 09:28:53
  */
 
 return [
@@ -13,9 +13,9 @@ return [
     //  +---------------------------------
 
     // 小程序app_id
-    'app_id' => '',
+    'app_id' => 'wxf5d7fbf999f8eda8',
     // 小程序app_secret
-    'app_secret' => '',
+    'app_secret' => 'd1658005b918df11e89a5c25294c29e8',
 
     // 微信使用code换取用户openid及session_key的url地址
     'login_url' => "https://api.weixin.qq.com/sns/jscode2session?" .

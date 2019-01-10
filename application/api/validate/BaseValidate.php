@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 11:19:25
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-09 15:00:31
+ * @Last Modified time: 2019-01-10 09:57:47
  */
 namespace app\api\validate;
 
@@ -40,7 +40,7 @@ class BaseValidate extends Validate
 		}
 	}
 
-	public function isNotEmpty($value,$rule ='',$data='',$field='') {
+	protected function isNotEmpty($value,$rule ='',$data='',$field='') {
 		if(empty($value)) {
 			return false;
 		}else {
@@ -59,7 +59,7 @@ class BaseValidate extends Validate
         }
     }
 
-	public function getDataByRule($arrays){
+	protected function getDataByRule($arrays){
 		if(array_key_exists('user_id', $arrays) | array_key_exists('uid', $arrays)){
             // 不允许包含user_id或者uid，防止恶意覆盖user_id外键
             throw new ParameterException([

@@ -4,7 +4,7 @@
  * @Author: wangzhen
  * @Date:   2019-01-08 17:04:12
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-09 14:06:25
+ * @Last Modified time: 2019-01-10 09:40:43
  */
 namespace app\api\service;
 
@@ -14,6 +14,8 @@ use app\lib\exception\TokenException;
 use app\api\model\User as UserModel;
 use think\Request;
 use think\Cache;
+use app\lib\enum\ScopeEnum;
+use app\lib\exception\ForbiddenException;
 
 class  Token
 {	
@@ -49,4 +51,30 @@ class  Token
 		$uid = self::getCurrentTokenVar('uid');
 		return $uid;
 	}
+	//用户与管理员都可访问接口权限
+	public static function needPrimaryScope(){
+		$scope = self::getCurrentTokenVar('scope');
+		if($scope){
+			if($scope >= ScopeEnum::User){
+				return true;
+			}else {
+				throw new ForbiddenException();
+			}
+		}else{
+			throw new TokenException();
+		}
+	}
+	//只有用户才能访问接口权限
+	public static  function needExclusiveScope(){
+		$scope = self::getCurrentTokenVar('scope');
+		if($scope){
+			if($scope == ScopeEnum::User){
+				return true;
+			}else {
+				throw new ForbiddenException();
+			}
+		}else{
+			throw new TokenException();
+		}
+	} 
 }

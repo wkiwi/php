@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-09 11:13:03
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-09 16:24:04
+ * @Last Modified time: 2019-01-10 09:35:52
  */
 namespace app\api\controller\v1;
 
@@ -13,29 +13,17 @@ use app\api\service\Token as TokenService;
 use app\api\model\User as UserModel;
 use app\lib\exception\UserException;
 use app\lib\exception\SuccessMessage;
-use think\Controller;
-use app\lib\enum\ScopeEnum;
-use app\lib\exception\ForbiddenException;
-use app\lib\exception\TokenException;
+use app\api\controller\BaseController;
 
-class Address extends Controller
+class Address extends BaseController
 {
 	protected $beforeActionList = [
 		'checkPrimaryScope' => ['only' => 'createOrUpdateAddress']
 	];
 
-	protected function checkPrimaryScope(){
-		$scope = TokenService::getCurrentTokenVar('scope');
-		if($scope){
-			if($scope >= ScopeEnum::User){
-				return true;
-			}else {
-				throw new ForbiddenException();
-			}
-		}else{
-			throw new TokenException();
-		}
-	}
+	// protected function checkPrimaryScope(){
+	// 	TokenService::needPrimaryScope();
+	// }
 
 	public function createOrUpdateAddress(){
 		$validate = new AddressNew();

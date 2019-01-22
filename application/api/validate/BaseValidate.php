@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-02 11:19:25
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-10 09:57:47
+ * @Last Modified time: 2019-01-18 15:24:30
  */
 namespace app\api\validate;
 
@@ -59,7 +59,7 @@ class BaseValidate extends Validate
         }
     }
 
-	protected function getDataByRule($arrays){
+	public function getDataByRule($arrays){
 		if(array_key_exists('user_id', $arrays) | array_key_exists('uid', $arrays)){
             // 不允许包含user_id或者uid，防止恶意覆盖user_id外键
             throw new ParameterException([

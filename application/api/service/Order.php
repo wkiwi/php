@@ -4,7 +4,7 @@
  * @Author: wkiwi
  * @Date:   2019-01-10 10:22:54
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-10 17:40:44
+ * @Last Modified time: 2019-01-18 17:29:36
  */
 namespace app\api\service;
 
@@ -16,7 +16,7 @@ use app\api\model\Order as OrderModel;
 use app\api\model\OrderProduct;
 use think\Exception;
 use app\api\service\Token;
-use think\Db;
+use think\Db; 
 class Order extends Token
 {	
 	//订单的商品列表，也就是客户端传递过来的product参数
@@ -121,6 +121,14 @@ class Order extends Token
 		}
 		return $userAddress->toArray();
 	}
+	//支付时再次进行库存检测
+	public function checkOrderStock($orderID){
+		$oProducts = OrderProduct::where('order_id', "=", $orderID)->select();
+		$this->oProducts = $oProducts;
+		$this->Products = $this->getProductsByOrder($oProducts);
+		$status = $this->getOrderStatus();
+		return $status;
+	}
 	//查看订单状态
 	private function getOrderStatus(){
 		$status = [
@@ -135,7 +143,7 @@ class Order extends Token
 				$status['pass'] = false;
 			}
 			$status['orderPrice'] += $pStatus['totalPrice'];
-			$status['totalCount'] += $pStatus['count'];
+			$status['totalCount'] += $pStatus['counts'];
 			array_push($status['pStatusArray'],$pStatus);
 		}
 		return $status;
@@ -147,9 +155,10 @@ class Order extends Token
 		$pStatus = [
 			'id' => null,
 			'haveStock' => false,
-			'count' => 0,
+			'counts' => 0,
 			'name' => '',
-			'totalPrice' => 0
+			'totalPrice' => 0,
+			'main_img_url'=>null
 		];
 		for($i=0; $i<count($products); $i++){
 			if($oPID == $products[$i]['id']){
@@ -164,7 +173,9 @@ class Order extends Token
 			$product = $products[$pIndex];
 			$pStatus['id'] = $product['id'];
 			$pStatus['name'] = $product['name'];
-			$pStatus['count'] = $oCount;
+			$pStatus['counts'] = $oCount;
+			$pStatus['price'] = $product['price'];
+			$pStatus['main_img_url'] = $product['main_img_url'];
 			$pStatus['totalPrice'] = $product['price'] * $oCount;
 			if($product['stock'] - $oCount >= 0){
 				$pStatus['haveStock'] = true;

@@ -4,7 +4,7 @@
  * @Author: wangzhen
  * @Date:   2019-01-08 17:04:12
  * @Last Modified by:   wkiwi
- * @Last Modified time: 2019-01-10 09:40:43
+ * @Last Modified time: 2019-01-18 16:32:45
  */
 namespace app\api\service;
 
@@ -77,4 +77,23 @@ class  Token
 			throw new TokenException();
 		}
 	} 
+
+	public static  function isValidOperate($checkedUID){
+		if($checkedUID){
+			throw new Exception('检查UID时必须传入一个被检查的UID');
+		}
+		$currentOperateUID =self::getCurrentUid();
+		if($currentOperateUID == $checkedUID){
+			return true;
+		}
+		return false;
+	}
+	public static function verifyToken($token){
+		$exist = Cache::get($token);
+		if($exist){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
